@@ -1,8 +1,18 @@
 variable "elb_sg" {
-    type = list(string)
-    description = "The SG ID for the ALB"
+  type        = list(string)
+  description = "The SG ID for the ALB"
 }
 
-variable "" {
-  
+variable "subnets" {
+  type        = list(string)
+  description = "public subnets"
+}
+
+variable "asg_target_group_id" {
+  type        = string
+  description = "The ID of the ASG for it to be registered as a target group"
+}
+
+variable "vpc_id" {
+  type = string
 }
