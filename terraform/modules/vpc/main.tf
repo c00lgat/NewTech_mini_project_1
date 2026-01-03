@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-    cidr_block = "10.0.0.0/16"
+    cidr_block = var.vpc_cidr_block
 
     tags = {
         Name = "mini-project1"
@@ -12,8 +12,14 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_subnet" "main" {
     vpc_id = aws_vpc.main.id
-    cidr_block = "10.0.1.0/24"
+    cidr_block = var.main_public_subnet_cidr
 }
+
+resource "aws_subnet" "secondary" {
+    vpc_id = aws_vpc.main.id
+    cidr_block = var.secondary_public_subnet_cidr
+}
+
 
 resource "aws_route_table" "public_rt" {
     vpc_id = aws_vpc.main.id
@@ -26,4 +32,14 @@ resource "aws_route_table" "public_rt" {
         cidr_block = aws_subnet.main.cidr_block
         gateway_id = "local"
     }
+}
+
+resource "aws_route_table_association" "main" {
+  subnet_id      = aws_subnet.main.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "secondary" {
+  subnet_id      = aws_subnet.secondary.id
+  route_table_id = aws_route_table.public_rt.id
 }
