@@ -17,3 +17,32 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
 }
+
+module "security_groups" {
+  source = "./modules/security_groups"
+  alb_ip = module.elb.aws_lb_ip
+  pc_ip = var.pc_ip
+  vpc_id = module.vpc.vpc_id
+}
+
+module "elb" {
+    source = "./modules/elb"
+    asg_target_group_id = module.asg.asg_id
+    subnets = module.vpc.public_subnet_ids
+    elb_sg = [module.security_groups.alb_sg]
+    vpc_id = module.vpc.vpc_id
+}
+
+module "ec2_launch_template" {
+    source = "./modules/ec2_launch_template"
+    security_group_ids = [module.security_groups.ec2_app_ingress_rules]
+    key_location = var.ssh_keys
+}
+
+module "asg" {
+    source = "./modules/asg"
+    asg_launch_template = module.ec2_launch_template.template_id
+    lb_arn = module.elb.target_group_arn
+    subnet1 = module.vpc.public_subnet_ids[0]
+    subnet2 = module.vpc.public_subnet_ids[1]
+}

@@ -4,14 +4,13 @@ resource "aws_security_group" "allow_ssh" {
   vpc_id      = var.vpc_id
 }
 
-resource "aws_vpc_security_group_ingress" "allow_ssh_rule" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh_rule" {
   security_group_id = aws_security_group.allow_ssh.id
   cidr_ipv4         = var.pc_ip
   ip_protocol       = "22"
-
 }
 
-resource "aws_security_group" "alb_ingress_rules" {
+resource "aws_security_group" "alb_sg" {
   name        = "alb_ingress_rules"
   description = "Allow HTTP/HTTPS traffic into the ALB"
   vpc_id      = var.vpc_id
@@ -53,7 +52,7 @@ resource "aws_security_group" "ec2_app_ingress_rules" {
     from_port   = 5000
     to_port     = 5000
     protocol    = "TCP"
-    cidr_blocks = ["${var.alb_ip}"]
+    security_groups = [aws_security_group.alb_sg.id]
     description = "Allow traffic only from the ALB"
   }
 }

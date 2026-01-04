@@ -33,7 +33,7 @@ resource "aws_route_table" "public_rt" {
   }
 
   route {
-    cidr_block = aws_subnet.main.cidr_block
+    cidr_block = aws_vpc.main.cidr_block
     gateway_id = "local"
   }
 }

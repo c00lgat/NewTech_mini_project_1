@@ -9,3 +9,7 @@ output "aws_lb_ip" {
 output "aws_lb_arn" {
   value = aws_lb.internet_facing.arn
 }
+
+output "target_group_arn" {
+  value = aws_lb_target_group.alb_asg_target_group.arn
+}

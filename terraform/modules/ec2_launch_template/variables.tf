@@ -5,7 +5,7 @@ variable "amazon_linux_ami_id" {
 
 variable "key_location" {
   type    = string
-  default = "~/.ssh/terraform_demo.pub"
+  description = "Path to the public key file"
 }
 
 variable "security_group_ids" {
