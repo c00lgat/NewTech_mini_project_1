@@ -34,9 +34,9 @@ jobs:
             - name: pytest_tests
               working-directory: app/
               run: |
-                python -m pytest test/
+                python -m pytest tests/
 
             - name: coverage_report
               working-directory: app/
               run: |
-                pyesy --cov=./ 
+                pytest --cov=./ 
