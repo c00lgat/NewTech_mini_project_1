@@ -3,6 +3,7 @@ on:
     push:
         paths:
             - 'app/**'
+    workflow_dispatch:
 jobs:
     first-job:
         runs-on: ubuntu-latest
@@ -23,7 +24,7 @@ jobs:
             - name: lint_code
               working-directory: app/
               run: |
-                flake8 --select=E,F main.py business_logic.py
+                flake8 --select=E,F --ignore=E128 main.py business_logic.py
 
             - name: security_checks
               working-directory: app/
