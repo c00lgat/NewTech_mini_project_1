@@ -1,6 +1,6 @@
 name: Test_on_Pull_Request
 on: 
-    pull_request:
+    push:
         paths:
             - 'app/**'
 jobs:

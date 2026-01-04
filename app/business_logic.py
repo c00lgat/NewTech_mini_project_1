@@ -8,7 +8,7 @@ from typing import Optional, List, Dict
 
 
 class TodoManager:
-    """Manages todo items with CRUD operations"""
+    """Manages todo items with CR UD operations"""
     
     def __init__(self):
         """Initialize the TodoManager with empty storage"""
