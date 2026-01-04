@@ -1,0 +1,41 @@
+name: Test_on_Pull_Request
+on: 
+    push:
+        paths:
+            - 'app/**'
+jobs:
+    first-job:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Checkout
+              uses: actions/checkout@v6
+
+            - name: ConfigPython
+              uses: actions/setup-python@v6
+              with:
+                python-version: '3.11'
+
+            - name: install_dependencies
+              working-directory: app/
+              run: |
+                pip install -r requirements.txt
+
+            - name: lint_code
+              working-directory: app/
+              run: |
+                flake8 --select=E,F main.py business_logic.py
+
+            - name: security_checks
+              working-directory: app/
+              run: |
+                bandit main.py business_logic.py
+
+            - name: pytest_tests
+              working-directory: app/
+              run: |
+                python -m pytest test/
+
+            - name: coverage_report
+              working-directory: app/
+              run: |
+                pyesy --cov=./ 
