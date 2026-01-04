@@ -55,4 +55,11 @@ resource "aws_security_group" "ec2_app_ingress_rules" {
     security_groups = [aws_security_group.alb_sg.id]
     description = "Allow traffic only from the ALB"
   }
+
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "TCP"
+    cidr_blocks = [var.pc_ip]
+  }
 }
