@@ -11,3 +11,15 @@ variable "key_location" {
 variable "security_group_ids" {
   type = list(string)
 }
+
+variable "project" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+variable "instance_type" {
+  type = string
+}

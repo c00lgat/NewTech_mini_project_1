@@ -9,3 +9,16 @@ variable "pc_ip" {
 variable "ssh_keys" {
   default = "/home/anan/.ssh/terraform_key.pub"
 }
+
+variable "project" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+
+variable "instance_type" {
+  type = string
+}

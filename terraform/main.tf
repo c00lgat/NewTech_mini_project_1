@@ -37,6 +37,9 @@ module "ec2_launch_template" {
     source = "./modules/ec2_launch_template"
     security_group_ids = [module.security_groups.ec2_app_ingress_rules]
     key_location = var.ssh_keys
+    project = var.project
+    environment = var.environment
+    instance_type = var.instance_type
 }
 
 module "asg" {
