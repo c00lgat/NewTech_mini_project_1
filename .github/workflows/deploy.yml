@@ -58,7 +58,8 @@ jobs:
               with:
                 context: ./app
                 file: ./app/Dockerfile
-                push: ${{ github.event_name != 'pull_request' }}
+                push: false
+                load: true
                 tags: ${{ vars.DOCKERHUB_USERNAME }}/app:${{ github.sha }}
             - name: Trivy Vulnerability Scanner
               uses: aquasecurity/trivy-action@0.33.1
@@ -69,6 +70,15 @@ jobs:
                 ignore-unfixed: true
                 vuln-type: 'os,library'
                 severity: 'CRITICAL,HIGH'
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v6
+              with:
+                context: ./app
+                file: ./app/Dockerfile
+                push: true
+                tags: |
+                      ${{ vars.DOCKERHUB_USERNAME }}/app:${{ github.sha }}
+                      ${{ vars.DOCKERHUB_USERNAME }}/app:latest
 
 
       
