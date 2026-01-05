@@ -89,6 +89,7 @@ jobs:
                 HOST: ${{ secrets.EC2_HOST }}
                 USER: ${{ secrets.EC2_USER }}
                 GITHUB_SHA: ${{ github.sha }}
+                IMAGE_URI: anan283/app:${{ github.sha }}
               run: |
                 echo "$PRIVATE_KEY" > key.pem
                 chmod 600 key.pem
