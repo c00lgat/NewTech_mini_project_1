@@ -79,6 +79,10 @@ jobs:
                 tags: |
                       ${{ vars.DOCKERHUB_USERNAME }}/app:${{ github.sha }}
                       ${{ vars.DOCKERHUB_USERNAME }}/app:latest
+    third-job:
+        needs: [second-job]
+        runs-on: ubuntu-latest
+        
 
 
       
