@@ -1,6 +1,6 @@
 name: Test_on_Pull_Request
 on: 
-    push:
+    pull_request:
         paths:
             - 'app/**'
     workflow_dispatch:
@@ -24,12 +24,12 @@ jobs:
             - name: lint_code
               working-directory: app/
               run: |
-                flake8 --select=E,F --ignore=E128 main.py business_logic.py
+                python -m flake8 --select=E,F --ignore=E128 main.py business_logic.py
 
             - name: security_checks
               working-directory: app/
               run: |
-                bandit main.py business_logic.py --severity-level high
+                python -m bandit main.py business_logic.py --severity-level high
 
             - name: pytest_tests
               working-directory: app/
@@ -39,4 +39,6 @@ jobs:
             - name: coverage_report
               working-directory: app/
               run: |
-                pytest --cov=./ 
+                python -m pytest --cov=./ --cov-report=json --cov-fail-under=80
+
+      
