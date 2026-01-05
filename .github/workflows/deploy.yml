@@ -59,7 +59,16 @@ jobs:
                 context: ./app
                 file: ./app/Dockerfile
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: ${{ vars.DOCKERHUB_USERNAME }}/app:latest
+                tags: ${{ vars.DOCKERHUB_USERNAME }}/app:${{ github.sha }}
+            - name: Trivy Vulnerability Scanner
+              uses: aquasecurity/trivy-action@0.33.1
+              with:
+                image-ref: 'https://hub.docker.com/repository/docker/anan283/app/tags/${{ github.sha }}'
+                format: 'table'
+                exit-code: '1'
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'CRITICAL,HIGH'
 
 
       
