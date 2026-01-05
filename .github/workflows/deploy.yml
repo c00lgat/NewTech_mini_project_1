@@ -63,7 +63,7 @@ jobs:
             - name: Trivy Vulnerability Scanner
               uses: aquasecurity/trivy-action@0.33.1
               with:
-                image-ref: 'https://hub.docker.com/repository/docker/anan283/app/tags/${{ github.sha }}'
+                image-ref: 'hub.docker.com/repository/docker/anan283/app/tags/${{ github.sha }}'
                 format: 'table'
                 exit-code: '1'
                 ignore-unfixed: true
