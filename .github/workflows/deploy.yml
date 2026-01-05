@@ -95,6 +95,7 @@ jobs:
                 chmod 600 key.pem
 
                 ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i key.pem ${USER}@${HOST}
+                cd 
                 cd /flask-app
                 touch .env 
                 echo IMAGE_URI=${IMAGE_URI} > .env 
