@@ -5,7 +5,6 @@ sh get-docker.sh
 
 mkdir /flask-app
 
-
 cat > /flask-app/docker-compose.yml <<'EOF'
 services:
   app:
@@ -14,3 +13,5 @@ services:
       - "5000:5000"
     restart: unless-stopped
 EOF
+
+chown -R ubuntu:ubuntu /flask-app

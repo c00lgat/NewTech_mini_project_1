@@ -93,11 +93,8 @@ jobs:
                 echo "$PRIVATE_KEY" > key.pem
                 chmod 600 key.pem
 
-                ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i key.pem ${USER}@${HOST} \
-                  "cd /flask-app && echo IMAGE_URI=${IMAGE_URI} > .env && docker compose pull && docker compose up -d --remove-orphans"
-                        
-
-                    
-
-
-      
+                ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i key.pem ${USER}@${HOST}
+                cd /flask-app
+                touch .env 
+                echo IMAGE_URI=${IMAGE_URI} > .env 
+                docker compose pull && docker compose up -d --remove-orphans
