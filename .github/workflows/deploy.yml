@@ -56,8 +56,10 @@ jobs:
             - name: Build and push Docker image
               uses: docker/build-push-action@v6
               with:
+                context: ./app
+                file: ./app/Dockerfile
                 push: ${{ github.event_name != 'pull_request' }}
-                tags: user/app:latest
+                tags: ${{ vars.DOCKERHUB_USERNAME }}/app:latest
 
 
       
