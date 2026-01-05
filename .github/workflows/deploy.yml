@@ -90,21 +90,14 @@ jobs:
                 USER: ${{ secrets.EC2_USER }}
                 GITHUB_SHA: ${{ github.sha }}
               run: |
-                set -euo pipefail
-                echo "$PRIVATE_KEY" > github-ec2.pem
-                chmod 600 github-ec2.pem
+                echo "$PRIVATE_KEY" > key.pem
+                chmod 600 key.pem
 
-                ssh -o StrictHostKeyChecking=no -i github-ec2.pem "${USER}@${HOST}" <<EOF
-                  set -euo pipefail
+                ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i key.pem ${USER}@${HOST} \
+                  "cd /flask-app && echo IMAGE_URI=${IMAGE_URI} > .env && docker compose pull && docker compose up -d --remove-orphans"
+                        
 
-                  cd /flask-app
-                  echo "IMAGE_URI=anan283/app:${{ github.sha }}" > .env
-                  docker compose pull
-                  docker compose up -d --remove-orphans
-                EOF
-            
-
-        
+                    
 
 
       
