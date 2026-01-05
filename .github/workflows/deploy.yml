@@ -82,6 +82,25 @@ jobs:
     third-job:
         needs: [second-job]
         runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to EC2
+              env:
+                PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+                HOST: ${{ secrets.EC2_HOST }}
+                USER: ${{ secrets.EC2_USER }}
+                GITHUB_SHA: ${{ github.sha }}
+              run: |
+                echo "$PRIVATE_KEY" > github-ec2.pem && chmod 600 github-ec2.pem
+                ssh -o StrictHostKeyChecking=no -i github-ec2.pem ${USER}@${HOST} '
+                echo "Current directory: $(pwd)"
+                echo "Listing home directory:"
+                ls -la ~
+                cd /flask-app
+                echo "IMAGE_URI=anan283/app:${GITHUB_SHA}" > .env
+                docker compose pull
+                docker compose up -d --remove-orphans
+            
+
         
 
 
