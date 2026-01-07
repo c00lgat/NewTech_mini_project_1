@@ -18,7 +18,18 @@ variable "environment" {
   type = string
 }
 
-
 variable "instance_type" {
   type = string
+}
+
+variable "asg_max_size" {
+  type = number
+}
+
+variable "asg_min_size" {
+  type = number
+}
+
+variable "asg_desired_capacity" {
+  type = number
 }

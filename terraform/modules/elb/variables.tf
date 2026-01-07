@@ -5,7 +5,7 @@ variable "elb_sg" {
 
 variable "subnets" {
   type        = list(string)
-  description = "public subnets"
+  description = "The target subnets that the ALB will be forwarding traffic to."
 }
 
 variable "asg_target_group_id" {
