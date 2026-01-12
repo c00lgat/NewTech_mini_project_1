@@ -2,6 +2,8 @@
 
 This project provisions a highly-available AWS deployment in `us-east-1` using Terraform modules.
 
+![Architecture diagram](docs/aws_architecture.svg)
+
 **Networking**
 - VPC: `10.0.0.0/16`
 - Two public subnets across two AZs:
