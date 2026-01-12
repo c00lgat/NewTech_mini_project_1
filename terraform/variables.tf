@@ -33,3 +33,7 @@ variable "asg_min_size" {
 variable "asg_desired_capacity" {
   type = number
 }
+
+variable "repo_name" {
+  type = string
+}
