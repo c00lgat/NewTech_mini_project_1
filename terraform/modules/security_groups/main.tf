@@ -60,6 +60,6 @@ resource "aws_security_group" "ec2_app_ingress_rules" {
     from_port = 22
     to_port = 22
     protocol = "TCP"
-    cidr_blocks = [var.pc_ip]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
