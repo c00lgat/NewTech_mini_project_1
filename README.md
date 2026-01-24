@@ -16,10 +16,15 @@ To provision the AWS environment shown in the diagram:
 During the plan/apply stage, Terraform may prompt you for input variables such as:
 
 project → Project name (used for naming/tagging resources)
+
 environment → Environment name (e.g. dev / prod)
+
 instance_type → EC2 instance type to launch (e.g. t3.micro)
+
 asg_max_size → Maximum number of EC2 instances the ASG can scale up to
+
 asg_min_size → Minimum number of EC2 instances the ASG must keep running
+
 asg_desired_capacity → Default number of EC2 instances the ASG should launch initially
 
 
