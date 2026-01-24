@@ -1,3 +1,5 @@
+Project Overview: https://vimeo.com/1152552572?share=copy&fl=cl&fe=ci
+
 ## Architecture
 
 This project provisions a highly-available AWS deployment in `us-east-1` using Terraform modules.
