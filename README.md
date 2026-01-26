@@ -11,9 +11,10 @@ To provision the AWS environment shown in the diagram:
   
   Run a Terraform plan:
   ```bash
-  terraform plan
+  terraform plan -var-file="dev.tfvars" #to launch the dev environment
+  terraform plan -var-file="prod.tfvars" #to launch the prod environment
   ```
-During the plan/apply stage, Terraform may prompt you for input variables such as:
+During the plan/apply stage, Terraform may prompt you for input variables if a tfvars file was not selected. Such as:
 
 project → Project name (used for naming/tagging resources)
 
